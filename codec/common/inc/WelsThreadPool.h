@@ -112,8 +112,6 @@ class  CWelsThreadPool : public CWelsThread, public IWelsTaskThreadSink {
   CWelsLock   m_cLockWaitedTasks;
   CWelsLock   m_cLockIdleTasks;
   CWelsLock   m_cLockBusyTasks;
-
-  DISALLOW_COPY_AND_ASSIGN (CWelsThreadPool);
 };
 
 }

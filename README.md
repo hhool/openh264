@@ -189,3 +189,7 @@ See the issue tracker on https://github.com/cisco/openh264/issues
 License
 -------
 BSD, see `LICENSE` file for details.
+
+8910:
+CC=armcc.exe CXX=armcc.exe AR=armar.exe  ../Z605_HL_F083I_CAMER/sprd_8910/make/make_cmd/make.exe OS=8910 libraries
+CC=armcc.exe CXX=armcc.exe AR=armar.exe  ../Z605_HL_F083I_CAMER/sprd_8910/make/make_cmd/make.exe OS=8910 install-static-lib

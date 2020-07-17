@@ -73,8 +73,6 @@ class CWelsTaskThread : public CWelsThread {
   IWelsTaskThreadSink*   m_pSink;
   IWelsTask*    m_pTask;
   uintptr_t    m_uiID;
-
-  DISALLOW_COPY_AND_ASSIGN (CWelsTaskThread);
 };
 
 }

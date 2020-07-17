@@ -51,7 +51,7 @@
 #include <stdarg.h>
 #include <sys/types.h>
 #else
-#include <sys/time.h>
+//#include <sys/time.h>
 #endif
 
 namespace WelsEnc {

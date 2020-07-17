@@ -51,7 +51,7 @@ extern const uint8_t g_kuiVlcTotalZerosChromaDc[4][4][2];
 extern const uint8_t g_kuiVlcTotalZerosChromaDc422[8][8][2];
 //g_kuiVlcRunBefore[zeros-left][run-before][0--value, 1--bit count]
 extern const uint8_t g_kuiVlcRunBefore[8][15][2];
-extern const ALIGNED_DECLARE (uint8_t, g_kuiEncNcMapTable[18], 16);
+extern const uint8_t g_kuiEncNcMapTable[18] __attribute__((aligned(16)));
 
 #define    CHROMA_DC_NC_OFFSET       17
 

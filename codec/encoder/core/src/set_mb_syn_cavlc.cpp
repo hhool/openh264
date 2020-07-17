@@ -45,7 +45,7 @@
 
 namespace WelsEnc {
 
-const  ALIGNED_DECLARE (uint8_t, g_kuiZeroLeftMap[16], 16) = {
+const  uint8_t g_kuiZeroLeftMap[16] __attribute__((aligned(16))) = {
   0, 1, 2, 3, 4, 5, 6, 7, 7, 7, 7, 7, 7, 7, 7, 7
 };
 

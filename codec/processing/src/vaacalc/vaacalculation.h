@@ -135,10 +135,10 @@ WELSVP_EXTERN_C_END
 class CVAACalculation : public IStrategy {
  public:
   CVAACalculation (int32_t iCpuFlag);
-  ~CVAACalculation();
+  virtual ~CVAACalculation();
 
-  EResult Process (int32_t iType, SPixMap* pCurPixMap, SPixMap* pRefPixMap);
-  EResult Set (int32_t iType, void* pParam);
+  virtual EResult Process (int32_t iType, SPixMap* pCurPixMap, SPixMap* pRefPixMap);
+  virtual EResult Set (int32_t iType, void* pParam);
 
  private:
   void InitVaaFuncs (SVaaFuncs& sVaaFunc, int32_t iCpuFlag);

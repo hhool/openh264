@@ -71,11 +71,11 @@ int16_t iChromaDc[2][4];
 
 typedef struct TagMbCache {
 //the followed pData now is promised aligned to 16 bytes
-ALIGNED_DECLARE (SMVComponentUnit, sMvComponents, 16);
+SMVComponentUnit sMvComponents __attribute__((aligned(16)));
 
-ALIGNED_DECLARE (int8_t, iNonZeroCoeffCount[48], 16);   // Cache line size
+int8_t iNonZeroCoeffCount[48] __attribute__((aligned(16)));   // Cache line size
 // int8_t iNonZeroCoeffCount[6 * 8];      // Right luma, Chroma(Left Top Cb, Left btm Cr); must follow by iIntraPredMode!
-ALIGNED_DECLARE (int8_t, iIntraPredMode[48], 16);
+int8_t iIntraPredMode[48] __attribute__((aligned(16)));
 // must follow with iNonZeroCoeffCount!
 
 int32_t    iSadCost[4];                        //avail 1; unavail 0

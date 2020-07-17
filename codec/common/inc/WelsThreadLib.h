@@ -63,17 +63,17 @@ typedef    HANDLE                    WELS_EVENT;
 #else // NON-WINDOWS
 
 #include <stdlib.h>
-#include <unistd.h>
+/*#include <unistd.h>*/
 #include <string.h>
 #include <pthread.h>
-#include <semaphore.h>
-#include <signal.h>
+//#include <semaphore.h>
+//#include <signal.h>
 #include <errno.h>
 #include <time.h>
-#include <sys/time.h>
+//#include <sys/time.h>
 
-#include <sys/stat.h>
-#include <fcntl.h>
+//#include <sys/stat.h>
+//#include <fcntl.h>
 
 typedef   pthread_t    WELS_THREAD_HANDLE;
 typedef  void* (*LPWELS_THREAD_ROUTINE) (void*);
@@ -83,7 +83,7 @@ typedef   pthread_mutex_t           WELS_MUTEX;
 #ifdef __APPLE__
 typedef   pthread_cond_t            WELS_EVENT;
 #else
-typedef   sem_t*                    WELS_EVENT;
+typedef   long                      WELS_EVENT;
 #endif
 
 #define   WELS_THREAD_ROUTINE_TYPE         void *

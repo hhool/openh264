@@ -45,7 +45,7 @@
 #include "svc_encode_mb.h"
 #include "svc_encode_slice.h"
 namespace WelsEnc {
-static const ALIGNED_DECLARE (int8_t, g_kiIntra16AvaliMode[8][5], 16) = {
+static const int8_t g_kiIntra16AvaliMode[8][5] __attribute__((aligned(16))) = {
   { I16_PRED_DC_128, I16_PRED_INVALID, I16_PRED_INVALID, I16_PRED_INVALID, 1 },
   { I16_PRED_DC_L,   I16_PRED_H,       I16_PRED_INVALID, I16_PRED_INVALID, 2 },
   { I16_PRED_DC_T,   I16_PRED_V,       I16_PRED_INVALID, I16_PRED_INVALID, 2 },
@@ -56,7 +56,7 @@ static const ALIGNED_DECLARE (int8_t, g_kiIntra16AvaliMode[8][5], 16) = {
   { I16_PRED_V,      I16_PRED_H,       I16_PRED_DC,      I16_PRED_P,       4 }
 };
 
-static const ALIGNED_DECLARE (uint8_t, g_kiIntra4AvailCount[16], 16) = {
+static const uint8_t g_kiIntra4AvailCount[16] __attribute__((aligned(16))) = {
 #ifndef  I4_PRED_MODE_EXTEND
   1, 3, 2, 4, 1, 3, 2, 7, 1, 3, 4, 6, 1, 3, 4, 9
 #else
@@ -65,7 +65,7 @@ static const ALIGNED_DECLARE (uint8_t, g_kiIntra4AvailCount[16], 16) = {
 };
 
 //left_avail | (top_avail<<1) | (left_top_avail<<2) | (right_top_avail<<3);
-static const ALIGNED_DECLARE (uint8_t, g_kiIntra4AvailMode[16][16], 16) = {
+static const uint8_t g_kiIntra4AvailMode[16][16] __attribute__((aligned(16))) = {
   {
     I4_PRED_DC_128,  I4_PRED_INVALID, I4_PRED_INVALID, I4_PRED_INVALID,
     I4_PRED_INVALID, I4_PRED_INVALID, I4_PRED_INVALID, I4_PRED_INVALID,
@@ -197,7 +197,7 @@ static const ALIGNED_DECLARE (uint8_t, g_kiIntra4AvailMode[16][16], 16) = {
   }                          //  1111
 
 };
-static const ALIGNED_DECLARE (int8_t, g_kiIntraChromaAvailMode[8][5], 16) = {
+static const int8_t g_kiIntraChromaAvailMode[8][5] __attribute__((aligned(16))) = {
   { C_PRED_DC_128, C_PRED_INVALID, C_PRED_INVALID, C_PRED_INVALID, 1 },
   { C_PRED_DC_L,   C_PRED_H,       C_PRED_INVALID, C_PRED_INVALID, 2 },
   { C_PRED_DC_T,   C_PRED_V,       C_PRED_INVALID, C_PRED_INVALID, 2 },
@@ -220,7 +220,7 @@ const int8_t g_kiCoordinateIdx4x4Y[16] = { 0, 0, 4, 4,
                                            8, 8, 12, 12,
                                            8, 8, 12, 12
                                          };
-static const ALIGNED_DECLARE (int8_t, g_kiNeighborIntraToI4x4[16][16], 16) = {
+static const int8_t g_kiNeighborIntraToI4x4[16][16] __attribute__((aligned(16))) = {
   { 0,  1,  10, 7,  1,  1,  15, 7,  10, 15, 10, 7,  15, 7,  15, 7},
   { 1,  1,  15, 7,  1,  1,  15, 7,  15, 15, 15, 7,  15, 7,  15, 7},
   { 10, 15, 10, 7,  15, 7,  15, 7,  10, 15, 10, 7,  15, 7,  15, 7},
@@ -239,7 +239,7 @@ static const ALIGNED_DECLARE (int8_t, g_kiNeighborIntraToI4x4[16][16], 16) = {
   { 15, 15, 15, 7,  15, 15, 15, 7,  15, 15, 15, 7,  15, 7,  15, 7},
 };
 
-ALIGNED_DECLARE (const int8_t, g_kiMapModeI4x4[14], 16) = {
+const int8_t g_kiMapModeI4x4[14] __attribute__((aligned(16))) = {
   0, 1, 2, 3, 4, 5, 6, 7, 8, 2, 2, 2, 3, 7
 };
 

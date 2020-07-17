@@ -45,11 +45,11 @@
 #endif
 #include <sched.h>
 #elif !defined(_WIN32) && !defined(__CYGWIN__)
-#include <sys/types.h>
-#include <sys/param.h>
-#include <unistd.h>
+//#include <sys/types.h>
+//#include <sys/param.h>
+//#include <unistd.h>
 #ifndef __Fuchsia__
-#include <sys/sysctl.h>
+//#include <sys/sysctl.h>
 #endif
 #ifdef __APPLE__
 #define HW_NCPU_NAME "hw.logicalcpu"
@@ -263,9 +263,9 @@ WELS_THREAD_ERROR_CODE    WelsThreadCreate (WELS_THREAD_HANDLE* thread,  LPWELS_
   err = pthread_attr_setscope (&at, PTHREAD_SCOPE_SYSTEM);
   if (err)
     return err;
-  err = pthread_attr_setschedpolicy (&at, SCHED_FIFO);
-  if (err)
-    return err;
+ // err = pthread_attr_setschedpolicy (&at, SCHED_FIFO);
+  //if (err)
+   // return err;
 #endif
   err = pthread_create (thread, &at, routine, arg);
 
@@ -300,19 +300,19 @@ WELS_THREAD_ERROR_CODE    WelsEventOpen (WELS_EVENT* p_event, const char* event_
   WELS_THREAD_ERROR_CODE err= pthread_cond_init (p_event, NULL);
   return err;
 #else
-  WELS_EVENT event = (WELS_EVENT) malloc (sizeof (*event));
+  WELS_EVENT event = (WELS_EVENT) malloc (sizeof (WELS_EVENT));
   if (event == NULL){
     *p_event = NULL;
     return WELS_THREAD_ERROR_GENERAL;
   }
-  WELS_THREAD_ERROR_CODE err = sem_init (event, 0, 0);
-  if (!err) {
+  //WELS_THREAD_ERROR_CODE err = sem_init (event, 0, 0);
+  /*if (!err) {
     *p_event = event;
     return err;
-  }
+  }*/
   free (event);
   *p_event = NULL;
-  return err;
+  return -1;
 #endif
 }
 WELS_THREAD_ERROR_CODE    WelsEventClose (WELS_EVENT* event, const char* event_name) {
@@ -321,19 +321,20 @@ WELS_THREAD_ERROR_CODE    WelsEventClose (WELS_EVENT* event, const char* event_n
   WELS_THREAD_ERROR_CODE err = pthread_cond_destroy (event);
   return err;
 #else
-  WELS_THREAD_ERROR_CODE err = sem_destroy (*event); // match with sem_init
+ /* WELS_THREAD_ERROR_CODE err = sem_destroy (*event); // match with sem_init
   free (*event);
   *event = NULL;
-  return err;
+  */
+  return -1;
 #endif
 }
 
 void WelsSleep (uint32_t dwMilliSecond) {
-  usleep (dwMilliSecond * 1000);
+  //usleep (dwMilliSecond * 1000);
 }
 
 WELS_THREAD_ERROR_CODE   WelsEventSignal (WELS_EVENT* event, WELS_MUTEX *pMutex, int* iCondition) {
-  WELS_THREAD_ERROR_CODE err = 0;
+  /*WELS_THREAD_ERROR_CODE err = 0;
   //fprintf( stderr, "before signal it, event=%x iCondition= %d..\n", event, *iCondition );
 #ifdef __APPLE__
   WelsMutexLock (pMutex);
@@ -357,10 +358,12 @@ WELS_THREAD_ERROR_CODE   WelsEventSignal (WELS_EVENT* event, WELS_MUTEX *pMutex,
     }
 #endif
   //fprintf( stderr, "after signal it, event=%x  iCondition= %d..\n",event, *iCondition );
-  return err;
+  return err;*/
+  return -1;
 }
 
 WELS_THREAD_ERROR_CODE WelsEventWait (WELS_EVENT* event, WELS_MUTEX* pMutex, int& iCondition) {
+/*
 #ifdef __APPLE__
   int err = 0;
   WelsMutexLock(pMutex);
@@ -372,12 +375,13 @@ WELS_THREAD_ERROR_CODE WelsEventWait (WELS_EVENT* event, WELS_MUTEX* pMutex, int
   return err;
 #else
   return sem_wait (*event); // blocking until signaled
-#endif
+#endif*/
+return -1;
 }
 
 WELS_THREAD_ERROR_CODE    WelsEventWaitWithTimeOut (WELS_EVENT* event, uint32_t dwMilliseconds, WELS_MUTEX* pMutex) {
 
-  if (dwMilliseconds != (uint32_t) - 1) {
+ /* if (dwMilliseconds != (uint32_t) - 1) {
 #if defined(__APPLE__)
     return pthread_cond_wait (event, pMutex);
 #else
@@ -399,12 +403,12 @@ WELS_THREAD_ERROR_CODE    WelsEventWaitWithTimeOut (WELS_EVENT* event, uint32_t 
     return sem_timedwait (*event, &ts);
 #endif
   }
-
+*/
 }
 
 WELS_THREAD_ERROR_CODE    WelsMultipleEventsWaitSingleBlocking (uint32_t nCount,
     WELS_EVENT* event_list, WELS_EVENT* master_event, WELS_MUTEX* pMutex) {
-  uint32_t nIdx = 0;
+ /* uint32_t nIdx = 0;
   uint32_t uiAccessTime = 2; // 2 us once
 
   if (nCount == 0)
@@ -432,7 +436,7 @@ WELS_THREAD_ERROR_CODE    WelsMultipleEventsWaitSingleBlocking (uint32_t nCount,
        * although such interface is not used in __GNUC__ like platform, to use
        * pthread_cond_timedwait() might be better choice if need
        */
-      do {
+     /* do {
         err = pthread_cond_wait (&event_list[nIdx], pMutex);
         if (WELS_THREAD_ERROR_OK == err)
           return WELS_THREAD_ERROR_WAIT_OBJECT_0 + nIdx;
@@ -477,7 +481,7 @@ WELS_THREAD_ERROR_CODE    WelsMultipleEventsWaitSingleBlocking (uint32_t nCount,
        * although such interface is not used in __GNUC__ like platform, to use
        * pthread_cond_timedwait() might be better choice if need
        */
-      do {
+      /*do {
         err = sem_trywait (event_list[nIdx]);
         if (WELS_THREAD_ERROR_OK == err)
           return WELS_THREAD_ERROR_WAIT_OBJECT_0 + nIdx;
@@ -500,12 +504,12 @@ WELS_THREAD_ERROR_CODE    WelsMultipleEventsWaitSingleBlocking (uint32_t nCount,
     }
   }
 
-#endif
+#endif*/
   return WELS_THREAD_ERROR_WAIT_FAILED;
 }
 
 WELS_THREAD_ERROR_CODE    WelsQueryLogicalProcessInfo (WelsLogicalProcessInfo* pInfo) {
-#ifdef ANDROID_NDK
+/*#ifdef ANDROID_NDK
   pInfo->ProcessorCount = android_getCpuCount();
   return WELS_THREAD_ERROR_OK;
 #elif defined(__linux__)
@@ -556,7 +560,8 @@ WELS_THREAD_ERROR_CODE    WelsQueryLogicalProcessInfo (WelsLogicalProcessInfo* p
 
   return WELS_THREAD_ERROR_OK;
 
-#endif//__linux__
+#endif//__linux__*/
+  return WELS_THREAD_ERROR_OK;
 }
 
 #endif

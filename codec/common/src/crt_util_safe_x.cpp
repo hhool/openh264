@@ -50,7 +50,6 @@
 #include <sys/time.h>
 #endif //!_MSC_VER
 #else
-#include <sys/time.h>
 #endif //_WIN32
 
 #include "macros.h"
@@ -215,7 +214,7 @@ int32_t WelsFclose (WelsFileHandle*   pFp) {
 }
 
 int32_t WelsGetTimeOfDay (SWelsTime* pTp) {
-  struct timeval  sTv;
+  /*struct timeval  sTv;
 
   if (gettimeofday (&sTv, NULL)) {
     return -1;
@@ -223,7 +222,7 @@ int32_t WelsGetTimeOfDay (SWelsTime* pTp) {
 
   pTp->time = sTv.tv_sec;
   pTp->millitm = (uint16_t)sTv.tv_usec / 1000;
-
+*/
   return 0;
 }
 

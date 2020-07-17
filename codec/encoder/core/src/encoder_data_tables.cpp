@@ -313,7 +313,7 @@ const uint8_t g_kuiVlcRunBefore[8][15][2] = {
   }
 };
 
-const ALIGNED_DECLARE (uint8_t, g_kuiEncNcMapTable[18], 16) = {
+const uint8_t g_kuiEncNcMapTable[18] __attribute__((aligned(16))) = {
   0, 0, 1, 1, 2, 2, 2, 2, 3, 3, 3, 3, 3, 3, 3, 3, 3, 4
 };
 

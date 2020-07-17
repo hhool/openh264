@@ -14,7 +14,7 @@ LIBSUFFIX=a
 CCAS=$(CC)
 CXX_O=-o $@
 CXX_LINK_O=-o $@
-AR_OPTS=cr $@
+AR_OPTS=-r $@
 LINK_LOCAL_DIR=-L.
 LINK_LIB=-l$(1)
 CFLAGS_OPT=-O3
@@ -76,7 +76,7 @@ STRIP_FLAGS := -g
 endif
 
 # Make sure the all target is the first one
-all: libraries binaries
+all: libraries
 
 include $(SRC_PATH)build/platform-$(OS).mk
 
@@ -221,10 +221,13 @@ libraries: $(LIBPREFIX)$(PROJECT_NAME).$(LIBSUFFIX)
 
 # No point in building dylib for ios
 ifneq (ios, $(OS))
+ifneq (8910, $(OS))
+	@echo $(OS)
 libraries: $(LIBPREFIX)$(PROJECT_NAME).$(SHAREDLIBSUFFIX)
 endif
+endif
 
-LIBRARIES += $(LIBPREFIX)$(PROJECT_NAME).$(LIBSUFFIX) $(LIBPREFIX)$(PROJECT_NAME).$(SHAREDLIBSUFFIXFULLVER)
+LIBRARIES += $(LIBPREFIX)$(PROJECT_NAME).$(LIBSUFFIX) #$(LIBPREFIX)$(PROJECT_NAME).$(SHAREDLIBSUFFIXFULLVER)
 
 $(LIBPREFIX)$(PROJECT_NAME).$(LIBSUFFIX): $(ENCODER_OBJS) $(DECODER_OBJS) $(PROCESSING_OBJS) $(COMMON_OBJS)
 	$(QUIET)rm -f $@

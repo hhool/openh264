@@ -52,7 +52,6 @@
 #include <sys/types.h>
 #include <sys/timeb.h>
 #else
-#include <sys/time.h>
 #include "typedefs.h"
 #endif//_WIN32
 

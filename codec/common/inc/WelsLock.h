@@ -48,7 +48,6 @@
 namespace WelsCommon {
 
 class CWelsLock {
-  DISALLOW_COPY_AND_ASSIGN (CWelsLock);
  public:
   CWelsLock() {
     WelsMutexInit (&m_cMutex);
@@ -71,7 +70,6 @@ class CWelsLock {
 };
 
 class CWelsAutoLock {
-  DISALLOW_COPY_AND_ASSIGN (CWelsAutoLock);
  public:
   CWelsAutoLock (CWelsLock& cLock) : m_cLock (cLock) {
     m_cLock.Lock();

@@ -151,8 +151,8 @@ void WelsQuantFour4x4Max_AArch64_neon (int16_t* pDct, const int16_t* pFF, const 
 }
 #endif//__cplusplus
 
-ALIGNED_DECLARE (extern const int16_t, g_kiQuantInterFF[58][8], 16);
+extern const int16_t g_kiQuantInterFF[58][8] __attribute__((aligned(16)));
 #define g_iQuantIntraFF (g_kiQuantInterFF +6 )
-ALIGNED_DECLARE (extern const int16_t, g_kiQuantMF[52][8], 16);
+extern const int16_t g_kiQuantMF[52][8] __attribute__((aligned(16)));
 }
 #endif//ENCODE_MB_AUX_H

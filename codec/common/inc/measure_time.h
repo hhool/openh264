@@ -43,8 +43,8 @@
 #include <stdlib.h>
 
 #include "typedefs.h"
-#ifndef _WIN32
-#include <sys/time.h>
+#if !defined(_WIN32) && !defined(RTOS)
+//#include <sys/time.h>
 #else
 #include <windows.h>
 #endif
@@ -62,10 +62,11 @@ extern "C" {
 
 static inline int64_t WelsTime (void) {
 #ifndef _WIN32
-  struct timeval tv_date;
+  /*struct timeval tv_date;
 
   gettimeofday (&tv_date, NULL);
   return ((int64_t) tv_date.tv_sec * 1000000 + (int64_t) tv_date.tv_usec);
+  */
 #else
   static int64_t iMtimeFreq = 0;
   int64_t iMtimeCur = 0;

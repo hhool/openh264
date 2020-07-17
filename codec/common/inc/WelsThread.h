@@ -92,8 +92,6 @@ class CWelsThread {
   bool                m_bRunning;
   bool                m_bEndFlag;
   int                 m_iConVar;
-
-  DISALLOW_COPY_AND_ASSIGN (CWelsThread);
 };
 
 

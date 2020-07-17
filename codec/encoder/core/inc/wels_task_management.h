@@ -83,7 +83,7 @@ class  CWelsTaskManageBase : public IWelsTaskManage, public WelsCommon::IWelsTas
   virtual WelsErrorType OnTaskExecuted();
   virtual WelsErrorType OnTaskCancelled();
 
-  int32_t  GetThreadPoolThreadNum();
+  virtual int32_t  GetThreadPoolThreadNum();
 
  protected:
   virtual WelsErrorType  CreateTasks (sWelsEncCtx* pEncCtx, const int32_t kiTaskCount);
@@ -109,10 +109,9 @@ class  CWelsTaskManageBase : public IWelsTaskManage, public WelsCommon::IWelsTas
   WelsCommon::CWelsLock  m_cWaitTaskNumLock;
 
  private:
-  DISALLOW_COPY_AND_ASSIGN (CWelsTaskManageBase);
   void  OnTaskMinusOne();
 
-  void Uninit();
+  virtual void Uninit();
   void DestroyTasks();
   void DestroyTaskList(TASKLIST_TYPE* pTargetTaskList);
 
@@ -124,10 +123,10 @@ class  CWelsTaskManageOne : public CWelsTaskManageBase {
   CWelsTaskManageOne();
   virtual ~CWelsTaskManageOne();
 
-  WelsErrorType   Init (sWelsEncCtx* pEncCtx);
+  virtual WelsErrorType   Init (sWelsEncCtx* pEncCtx);
   virtual WelsErrorType  ExecuteTasks(const CWelsBaseTask::ETaskType iTaskType = CWelsBaseTask::WELS_ENC_TASK_ENCODING);
 
-  int32_t  GetThreadPoolThreadNum() {return 1;};
+  virtual int32_t  GetThreadPoolThreadNum() {return 1;};
 };
 
 }       //namespace

@@ -66,7 +66,7 @@ static inline uint32_t GetLogFactor (float base, float upper) {
 #if defined(_M_X64) && _MSC_VER == 1800
   _set_FMA3_enable(0);
 #endif
-  const double dLog2factor      = log10 (1.0 * upper / base) / log10 (2.0);
+  const double dLog2factor      = log10 (1.0 * (double)upper / (double)base) / log10 (2.0);
   const double dEpsilon         = 0.0001;
   const double dRound           = floor (dLog2factor + 0.5);
 

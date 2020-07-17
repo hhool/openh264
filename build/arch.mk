@@ -29,3 +29,12 @@ ASMFLAGS += -I$(SRC_PATH)codec/common/arm64/
 CFLAGS += -DHAVE_NEON_AARCH64
 endif
 endif
+
+#for context-a5
+ifneq ($(filter armv7, $(ARCH)),)
+ifeq ($(USE_ASM), Yes)
+ASM_ARCH = arm
+ASMFLAGS += -I$(SRC_PATH)codec/common/arm/
+CFLAGS += -DHAVE_NEON
+endif
+endif

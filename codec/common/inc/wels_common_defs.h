@@ -35,7 +35,7 @@
 #define WELS_COMMON_DEFS_H__
 
 #include "typedefs.h"
-#include "macros.h"
+#include <macros.h>
 #include "codec_app_def.h"
 
 
@@ -66,11 +66,10 @@ extern const uint8_t g_kuiCache30ScanIdx[16];
 extern const uint8_t g_kuiCache48CountScan4Idx[24];
 
 extern const uint8_t g_kuiMatrixV[6][8][8];
-
 extern const uint8_t g_kuiDequantScaling4x4Default[2][16];
 extern const uint8_t g_kuiDequantScaling8x8Default[2][64];
-extern const ALIGNED_DECLARE (uint16_t, g_kuiDequantCoeff[52][8], 16);
-extern const ALIGNED_DECLARE (uint16_t, g_kuiDequantCoeff8x8[52][64], 16);
+extern const uint16_t g_kuiDequantCoeff[52][8] __attribute__((aligned(16)));
+extern const uint16_t g_kuiDequantCoeff8x8[52][64] __attribute__((aligned(16)));
 extern const uint8_t g_kuiChromaQpTable[52];
 
 extern const uint8_t g_kuiCabacRangeLps[64][4];

@@ -101,9 +101,9 @@ class  CWelsParametersetIdConstant : public IWelsParametersetStrategy {
 
   virtual int32_t GetPpsIdOffset (const int32_t iPpsId);
   virtual int32_t GetSpsIdOffset (const int32_t iPpsId, const int32_t iSpsId);
-  int32_t* GetSpsIdOffsetList (const int iParasetType);
+  virtual int32_t* GetSpsIdOffsetList (const int iParasetType);
 
-  uint32_t GetAllNeededParasetNum();
+  virtual uint32_t GetAllNeededParasetNum();
 
   virtual uint32_t GetNeededSpsNum();
   virtual uint32_t GetNeededSubsetSpsNum();
@@ -116,7 +116,7 @@ class  CWelsParametersetIdConstant : public IWelsParametersetStrategy {
   virtual void Update (const uint32_t kuiId, const int iParasetType);
   virtual void UpdatePpsList (sWelsEncCtx* pCtx) {};
 
-  bool CheckParamCompatibility (SWelsSvcCodingParam* pCodingParam, SLogContext* pLogCtx) {
+  virtual bool CheckParamCompatibility (SWelsSvcCodingParam* pCodingParam, SLogContext* pLogCtx) {
     return true;
   };
 
@@ -238,7 +238,7 @@ class  CWelsParametersetSpsListing : public CWelsParametersetIdNonConstant {
                              SSubsetSps*       pSubsetArray,
                              SWelsPPS* pPpsArray);
 
-  bool CheckParamCompatibility (SWelsSvcCodingParam* pCodingParam, SLogContext* pLogCtx);
+  virtual bool CheckParamCompatibility (SWelsSvcCodingParam* pCodingParam, SLogContext* pLogCtx);
 
   virtual uint32_t GenerateNewSps (sWelsEncCtx* pCtx, const bool kbUseSubsetSps, const int32_t iDlayerIndex,
                                    const int32_t iDlayerCount, uint32_t kuiSpsId,
@@ -246,7 +246,7 @@ class  CWelsParametersetSpsListing : public CWelsParametersetIdNonConstant {
 
   virtual void UpdateParaSetNum (sWelsEncCtx* pCtx);
 
-  int32_t GetSpsIdx (const int32_t iIdx) {
+  virtual int32_t GetSpsIdx (const int32_t iIdx) {
     return iIdx;
   };
 
