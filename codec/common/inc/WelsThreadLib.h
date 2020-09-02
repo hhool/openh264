@@ -41,6 +41,8 @@
 #ifndef   _WELS_THREAD_API_H_
 #define   _WELS_THREAD_API_H_
 
+#define NO_THREAD   1
+
 #include "typedefs.h"
 
 #ifdef  __cplusplus

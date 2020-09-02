@@ -916,9 +916,14 @@ int ProcessEncoding (ISVCEncoder* pPtrEnc, int argc, char** argv, bool bConfigFi
     }
 #endif
 #else
-    if (!fseeko (pFileYUV, 0, SEEK_END)) {
-      int64_t i_size = ftello (pFileYUV);
-      fseeko (pFileYUV, 0, SEEK_SET);
+    // if (!fseeko (pFileYUV, 0, SEEK_END)) {
+    //   int64_t i_size = ftello (pFileYUV);
+    //   fseeko (pFileYUV, 0, SEEK_SET);
+    //   iTotalFrameMax = WELS_MAX ((int32_t) (i_size / kiPicResSize), iTotalFrameMax);
+    // }
+      if (!fseek (pFileYUV, 0, SEEK_END)) {
+      int64_t i_size = ftell (pFileYUV);
+      fseek (pFileYUV, 0, SEEK_SET);
       iTotalFrameMax = WELS_MAX ((int32_t) (i_size / kiPicResSize), iTotalFrameMax);
     }
 #endif

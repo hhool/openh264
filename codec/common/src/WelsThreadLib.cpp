@@ -113,6 +113,26 @@ WELS_THREAD_ERROR_CODE    WelsMutexDestroy (WELS_MUTEX* mutex) {
 
 #else /* _WIN32 */
 
+#ifdef NO_THREAD
+
+WELS_THREAD_ERROR_CODE    WelsMutexInit (WELS_MUTEX*    mutex) {
+  return 0;
+}
+
+WELS_THREAD_ERROR_CODE    WelsMutexLock (WELS_MUTEX*    mutex) {
+  return 0;
+}
+
+WELS_THREAD_ERROR_CODE    WelsMutexUnlock (WELS_MUTEX* mutex) {
+  return 0;
+}
+
+WELS_THREAD_ERROR_CODE    WelsMutexDestroy (WELS_MUTEX* mutex) {
+  return 0;
+}
+
+#elif
+
 WELS_THREAD_ERROR_CODE    WelsMutexInit (WELS_MUTEX*    mutex) {
   return pthread_mutex_init (mutex, NULL);
 }
@@ -128,6 +148,8 @@ WELS_THREAD_ERROR_CODE    WelsMutexUnlock (WELS_MUTEX* mutex) {
 WELS_THREAD_ERROR_CODE    WelsMutexDestroy (WELS_MUTEX* mutex) {
   return pthread_mutex_destroy (mutex);
 }
+
+#endif
 
 #endif /* !_WIN32 */
 
@@ -250,6 +272,65 @@ WELS_THREAD_ERROR_CODE    WelsQueryLogicalProcessInfo (WelsLogicalProcessInfo* p
 }
 
 #else //platform: #ifdef _WIN32
+
+#if NO_THREAD
+
+WELS_THREAD_ERROR_CODE    WelsThreadCreate (WELS_THREAD_HANDLE* thread,  LPWELS_THREAD_ROUTINE  routine,
+    void* arg, WELS_THREAD_ATTR attr) {
+  return WELS_THREAD_ERROR_OK;
+}
+
+WELS_THREAD_ERROR_CODE WelsThreadSetName (const char* thread_name) {
+
+  return WELS_THREAD_ERROR_OK;
+}
+
+WELS_THREAD_ERROR_CODE    WelsThreadJoin (WELS_THREAD_HANDLE  thread) {
+  return WELS_THREAD_ERROR_OK;
+}
+
+WELS_THREAD_HANDLE        WelsThreadSelf() {
+  return WELS_THREAD_ERROR_OK;
+}
+
+// unnamed semaphores aren't supported on OS X
+
+WELS_THREAD_ERROR_CODE    WelsEventOpen (WELS_EVENT* p_event, const char* event_name) {
+  return WELS_THREAD_ERROR_OK;
+}
+
+WELS_THREAD_ERROR_CODE    WelsEventClose (WELS_EVENT* event, const char* event_name) {
+  return WELS_THREAD_ERROR_OK;
+}
+
+void WelsSleep (uint32_t dwMilliSecond) {
+  //usleep (dwMilliSecond * 1000);
+}
+
+WELS_THREAD_ERROR_CODE   WelsEventSignal (WELS_EVENT* event, WELS_MUTEX *pMutex, int* iCondition) {
+  return WELS_THREAD_ERROR_OK;
+}
+
+WELS_THREAD_ERROR_CODE WelsEventWait (WELS_EVENT* event, WELS_MUTEX* pMutex, int& iCondition) {
+  return WELS_THREAD_ERROR_OK;
+}
+
+WELS_THREAD_ERROR_CODE    WelsEventWaitWithTimeOut (WELS_EVENT* event, uint32_t dwMilliseconds, WELS_MUTEX* pMutex) {
+  return WELS_THREAD_ERROR_OK;
+}
+
+WELS_THREAD_ERROR_CODE    WelsMultipleEventsWaitSingleBlocking (uint32_t nCount,
+    WELS_EVENT* event_list, WELS_EVENT* master_event, WELS_MUTEX* pMutex) {
+
+  return WELS_THREAD_ERROR_OK;
+}
+
+WELS_THREAD_ERROR_CODE    WelsQueryLogicalProcessInfo (WelsLogicalProcessInfo* pInfo) {
+
+  return WELS_THREAD_ERROR_OK;
+}
+
+#elif //NO_THREAD
 
 WELS_THREAD_ERROR_CODE    WelsThreadCreate (WELS_THREAD_HANDLE* thread,  LPWELS_THREAD_ROUTINE  routine,
     void* arg, WELS_THREAD_ATTR attr) {
@@ -563,5 +644,8 @@ WELS_THREAD_ERROR_CODE    WelsQueryLogicalProcessInfo (WelsLogicalProcessInfo* p
 #endif//__linux__*/
   return WELS_THREAD_ERROR_OK;
 }
+
+
+#endif //NO_THREAD
 
 #endif
