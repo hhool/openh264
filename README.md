@@ -200,11 +200,9 @@ CC=armcc.exe CXX=armcc.exe AR=armar.exe make.exe OS=8910 install-static-lib
 armcc.exe -o h264dec codec/console/dec/src/h264dec.cpp codec/console/dec/src/d3d9_utils.cpp -Icodec/console/dec/inc -Icodec/common/inc -Icodec/console/common/inc -Icodec/api/svc -Icodec/encoder/core/inc -Ic
 odec/processing/interface libdecoder.a libcommon.a libconsole_common.a libprocessing.a --cpu cortex-a5 --diag_suppress 1,9,61,66,68,69,111,117,144,152,167,170,174,177,186,188,191,223,226,236,375,494,513,550,8 
 15,940,1134,1287,1293,1294,1295,1296,1381,1441,1608,1652,1764,1786,2523,2775,3017,3052,6314,6329 --fpu VFPv2 --enum_is_int --enum_is_int -D_RTOS -D_DEBUG --loose_implicit_cast --debug --no_unaligned_access -- 
-li -g --thumb -I../Z605_HL_F083I_CAMER/sprd_8910/external/libc
+li -g --thumb -I../build_ys102/watch8910/external/libc
 
-armcc.exe -o h264enc codec/console/enc/src/welsenc.cpp -Icodec/common/inc -Icodec/console/common/inc -Icodec/api/svc -Icodec/encoder/core/inc -Icodec/processing/interface libencoder.a libcommon.a libconsole
-_common.a libprocessing.a --cpu cortex-a5 --diag_suppress 1,9,61,66,68,69,111,117,144,152,167,170,174,177,186,188,191,223,226,236,375,494,513,550,815,940,1134,1287,1293,1294,1295,1296,1381,1441,1608,1652,1764 
-,1786,2523,2775,3017,3052,6314,6329 --fpu VFPv2 --enum_is_int --enum_is_int -D_RTOS -D_DEBUG --loose_implicit_cast --debug --no_unaligned_access --li -g --thumb -I../Z605_HL_F083I_CAMER/sprd_8910/external/libc
+armcc.exe -o h264enc codec/console/enc/src/welsenc.cpp -Icodec/common/inc -Icodec/console/common/inc -Icodec/api/svc -Icodec/encoder/core/inc -Icodec/processing/interface libencoder.a libcommon.a libconsole_common.a libprocessing.a --cpu cortex-a5 --diag_suppress 1,9,61,66,68,69,111,117,144,152,167,170,174,177,186,188,191,223,226,236,375,494,513,550,815,940,1134,1287,1293,1294,1295,1296,1381,1441,1608,1652,1764,1786,2523,2775,3017,3052,6314,6329 --fpu VFPv2 --enum_is_int --enum_is_int -D_RTOS -D_DEBUG --loose_implicit_cast --debug --no_unaligned_access --li -g --thumb -I../build_ys102/watch8910/external/libc
 
 enable neon
 -DHAVE_NEON
