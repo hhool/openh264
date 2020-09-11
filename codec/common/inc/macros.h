@@ -68,15 +68,13 @@
 
 
 #if defined(_MSC_VER)
-
+#define __attribute__(x)
 #if(_MSC_VER < 1700)
 #define inline __inline
 #endif
 
 #define ALIGNED_DECLARE( type, var, n ) __declspec(align(n)) type var
-dsfdsf
 #elif defined(__GNUC__)
-dsfdsf
 #define ALIGNED_DECLARE( type, var, n ) type var __attribute__((aligned(n)))
 #endif//_MSC_VER
 
