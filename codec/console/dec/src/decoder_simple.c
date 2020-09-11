@@ -13,9 +13,11 @@ void Decoder(ISVCDecoder* pDecoder) {
   unsigned char* pDst[3] = {NULL};
   SBufferInfo sDstBufInfo;
   int iSliceSize = -1;
+  int iSliceIndex = 0;
   int iBufPos = 0;
   int i = 0;
-  int bLegacyCalling = 1;
+  int iFrameCount = 0;
+  int iEndOfStreamFlag = 0;
   do {
     FILE* pH264File = fopen ("d:\\rcrtc\\media\\I420_176_144.h264", "rb");
     if (pH264File == NULL) {
@@ -31,8 +33,15 @@ void Decoder(ISVCDecoder* pDecoder) {
     }
 
     memcpy (pBuf + iFileSize, &uiStartCode[0], 4); //confirmed_safe_unsafe_usage
-
+    //TODO(hhool):
+    //start_time;
     while(true) {
+      if (iBufPos >= iFileSize) {
+        iEndOfStreamFlag = true;
+        if (iEndOfStreamFlag)
+          (*pDecoder)->SetOption(pDecoder, DECODER_OPTION_END_OF_STREAM, (void*)&iEndOfStreamFlag);
+        break;
+      }
       for (i = 0; i < iFileSize; i++) {
         if ((pBuf[iBufPos + i] == 0 && pBuf[iBufPos + i + 1] == 0 && pBuf[iBufPos + i + 2] == 0 && pBuf[iBufPos + i + 3] == 1
              && i > 0) || (pBuf[iBufPos + i] == 0 && pBuf[iBufPos + i + 1] == 0 && pBuf[iBufPos + i + 2] == 1 && i > 0)) {
@@ -51,15 +60,21 @@ void Decoder(ISVCDecoder* pDecoder) {
       pData[2] = NULL;
       memset (&sDstBufInfo, 0, sizeof (SBufferInfo));
 
-      (*pDecoder)->DecodeFrame2 (pDecoder, pBuf + iBufPos, iSliceSize, pData, &sDstBufInfo);
+      (*pDecoder)->DecodeFrameNoDelay(pDecoder, pBuf + iBufPos, iSliceSize, pData, &sDstBufInfo);
     
       if (sDstBufInfo.iBufferStatus == 1) {
         pDst[0] = pData[0];
         pDst[1] = pData[1];
         pDst[2] = pData[2];
+
+        ++iFrameCount;
       }
+      iBufPos += iSliceSize;
+      ++iSliceIndex;
     }
-  }while(false);
+  } while(false);
+  //TODO(hhool):
+  //stop_time;
 }
 
 int main(int iArgC, char* pArgV[]) {
