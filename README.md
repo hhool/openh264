@@ -191,8 +191,11 @@ License
 BSD, see `LICENSE` file for details.
 
 8910:
-CC=armcc.exe CXX=armcc.exe AR=armar.exe  ../Z605_HL_F083I_CAMER/sprd_8910/make/make_cmd/make.exe OS=8910 libraries
-CC=armcc.exe CXX=armcc.exe AR=armar.exe  ../Z605_HL_F083I_CAMER/sprd_8910/make/make_cmd/make.exe OS=8910 install-static-lib
+MINGW bash
+export PATH=$PATH:/d/project/ys/build_ys102/watch8910/make/make_cmd/
+export PATH=$PATH:/C/Program\ Files/DS-5\ v5.26.0/sw/ARMCompiler5.06u4/bin
+CC=armcc.exe CXX=armcc.exe AR=armar.exe make.exe OS=8910 libraries
+CC=armcc.exe CXX=armcc.exe AR=armar.exe make.exe OS=8910 install-static-lib
 
 armcc.exe -o h264dec codec/console/dec/src/h264dec.cpp codec/console/dec/src/d3d9_utils.cpp -Icodec/console/dec/inc -Icodec/common/inc -Icodec/console/common/inc -Icodec/api/svc -Icodec/encoder/core/inc -Ic
 odec/processing/interface libdecoder.a libcommon.a libconsole_common.a libprocessing.a --cpu cortex-a5 --diag_suppress 1,9,61,66,68,69,111,117,144,152,167,170,174,177,186,188,191,223,226,236,375,494,513,550,8 
