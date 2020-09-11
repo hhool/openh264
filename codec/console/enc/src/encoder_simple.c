@@ -25,13 +25,24 @@ int main(int argc, char** argv)
   param.fMaxFrameRate = 5;
   param.iPicWidth = width;
   param.iPicHeight = height;
-  param.iTargetBitrate = 80 * 1000;
-  param.iMaxBitrate = 120 * 1000;
+  ///< target bitrate desired, in unit of bps
+  param.iTargetBitrate = 40 * 1000;
+  ///< the maximum bitrate, in unit of bps, set it to UNSPECIFIED_BIT_RATE if not needed
+  param.iMaxBitrate = 60 * 1000;
+  ///< rate control mode
   param.iRCMode = RC_BITRATE_MODE;
-  param.uiIntraPeriod = 4000;
+  ///< period of Intra frame, IDR frame period 400 frame
+  param.uiIntraPeriod = 400;
+  ///< 1 # 0: auto(dynamic imp. internal encoder); 1: multiple threads imp. disabled; lager than 1: count number of threads;
   param.iMultipleThreadIdc = 1;
-  param.bEnableFrameSkip = 0;
+  ///< False: don't skip frame even if VBV buffer overflow.True: allow skipping frames to keep the bitrate within limits
+  param.bEnableFrameSkip = 1;
+  ///< number of reference frame used
   param.iNumRefFrame = 1;
+  ///< the maximum QP encoder supports
+  param.iMaxQp = 49;
+  ///< the minmum QP encoder supports
+  param.iMinQp = 20;
   // The base spatial layer 0 is the only one we use.
   param.sSpatialLayers[0].iVideoWidth = param.iPicWidth;
   param.sSpatialLayers[0].iVideoHeight = param.iPicHeight;
