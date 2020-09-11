@@ -641,6 +641,7 @@ int32_t CWelsPreProcess::DownsamplePadding (SPicture* pSrc, SPicture* pDstPic,  
   sSrcPixMap.eFormat     = VIDEO_FORMAT_I420;
 
   if (iSrcWidth != iShrinkWidth || iSrcHeight != iShrinkHeight || bForceCopy) {
+#if !(defined(RTOS) || defined(RTOS_SIMULATION))
     int32_t iMethodIdx = METHOD_DOWNSAMPLE;
     sDstPicMap.pPixel[0]   = pDstPic->pData[0];
     sDstPicMap.pPixel[1]   = pDstPic->pData[1];
@@ -661,6 +662,7 @@ int32_t CWelsPreProcess::DownsamplePadding (SPicture* pSrc, SPicture* pDstPic,  
                         iSrcWidth, iSrcHeight);
     }
   } else {
+#endif
     memcpy (&sDstPicMap, &sSrcPixMap, sizeof (sDstPicMap)); // confirmed_safe_unsafe_usage
   }
 

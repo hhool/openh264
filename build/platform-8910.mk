@@ -16,6 +16,8 @@ CFLAGS += --cpu cortex-a5 --diag_suppress 1,9,61,66,68,69,111,117,144,152,167,17
 		--diag_suppress 1441,1608,1652,1764,1786,2523,2775,3017,3052,6314,6329 \
 		--diag_suppress 1300 \
 		--fpu VFPv2 --enum_is_int --enum_is_int -D_RTOS -D_DEBUG --loose_implicit_cast --debug --no_unaligned_access --li -g --thumb \
+		-DRTOS \
 		-I../build_ys102/watch8910/external/libc
+
 LDFLAGS += 
 STATIC_LDFLAGS += -lpthread -lm

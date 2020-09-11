@@ -271,9 +271,11 @@ IStrategy* CVpFrameWork::CreateStrategy (EMethods m_eMethod, int32_t iCpuFlag) {
   case METHOD_SCENE_CHANGE_DETECTION_SCREEN:
     pStrategy = BuildSceneChangeDetection (m_eMethod, iCpuFlag);
     break;
+#if !(defined(RTOS) || defined(RTOS_SIMULATION))
   case METHOD_DOWNSAMPLE:
     pStrategy = WelsDynamicCast (IStrategy*, new CDownsampling (iCpuFlag));
     break;
+#endif
   case METHOD_VAA_STATISTICS:
     pStrategy = WelsDynamicCast (IStrategy*, new CVAACalculation (iCpuFlag));
     break;

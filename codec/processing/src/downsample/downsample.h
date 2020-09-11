@@ -47,6 +47,7 @@
 #include "IWelsVP.h"
 #include "macros.h"
 
+#if !(defined(RTOS) || defined(RTOS_SIMULATION))
 WELSVP_NAMESPACE_BEGIN
 
 
@@ -197,5 +198,5 @@ class CDownsampling : public IStrategy {
 };
 
 WELSVP_NAMESPACE_END
-
+#endif
 #endif

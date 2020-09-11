@@ -43,8 +43,11 @@
 #include <stdlib.h>
 
 #include "typedefs.h"
-#if !defined(_WIN32) && !defined(RTOS)
-//#include <sys/time.h>
+#if !defined(_WIN32)
+#if defined(RTOS)
+#else
+#include <sys/time.h>
+#endif
 #else
 #include <windows.h>
 #endif

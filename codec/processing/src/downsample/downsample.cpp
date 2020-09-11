@@ -34,6 +34,7 @@
 #include "cpu.h"
 #include <assert.h>
 
+#if !(defined(RTOS) || defined(RTOS_SIMULATION))
 WELSVP_NAMESPACE_BEGIN
 #define MAX_SAMPLE_WIDTH 1920
 #define MAX_SAMPLE_HEIGHT 1088
@@ -292,3 +293,5 @@ void CDownsampling::DownsampleHalfAverage (uint8_t* pDst, int32_t iDstStride,
 
 
 WELSVP_NAMESPACE_END
+
+#endif
