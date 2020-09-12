@@ -37,7 +37,11 @@
 #include "wels_const.h"
 #include "utils.h"
 #include "macros.h"
+#if defined(RTOS_THREADX_UNICOS)
+#include "version_gen.h"
+#else
 #include "version.h"
+#endif
 #include "crt_util_safe_x.h" // Safe CRT routines like util for cross platforms
 #include "ref_list_mgr_svc.h"
 #include "codec_ver.h"

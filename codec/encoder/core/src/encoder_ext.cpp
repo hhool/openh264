@@ -55,7 +55,17 @@
 #include "slice_multi_threading.h"
 #include "measure_time.h"
 #include "svc_set_mb_syn.h"
-
+#if defined(RTOS_THREADX_UNICOS)
+#include <sci_log.h>
+#if defined(ENABLE_DEBUG_TRACE)
+#define rc_printf(format, ...) SCI_TraceLow("[%s:%s:%d]:" format "\n", __FILE__, __FUNCTION__, __LINE__, ##__VA_ARGS__)
+#else
+#define rc_printf(format, ...) ((void)0)
+#endif
+#else
+#include <stdio.h>
+#define rc_printf(format, ...) printf("[%s:%s:%d]:" format "\n", __FILE__, __FUNCTION__, __LINE__, ##__VA_ARGS__)
+#endif
 namespace WelsEnc {
 
 
@@ -2228,6 +2238,7 @@ int32_t GetMultipleThreadIdc (SLogContext* pLogCtx, SWelsSvcCodingParam* pCoding
     WelsLog (pLogCtx, WELS_LOG_ERROR, "GetMultipleThreadIdc(), InitSliceSettings failed.");
     return 1;
   }
+  rc_printf("rc_iMultipleThreadIdc %d, uiCpuCores %d, iSliceNum %d\r\n", pCodingParam->iMultipleThreadIdc, uiCpuCores, iSliceNum);
   return 0;
 }
 
@@ -2306,6 +2317,7 @@ int32_t WelsInitEncoderExt (sWelsEncCtx** ppCtx, SWelsSvcCodingParam* pCodingPar
     return iRet;
   }
   iRet = GetMultipleThreadIdc (pLogCtx, pCodingParam, iSliceNum, iCacheLineSize, uiCpuFeatureFlags);
+  rc_printf("rc_iCacheLineSize %d, uiCpuFeatureFlags %d\r\n", iCacheLineSize, uiCpuFeatureFlags);
   if (iRet != 0) {
     WelsLog (pLogCtx, WELS_LOG_ERROR, "WelsInitEncoderExt(), GetMultipleThreadIdc failed return %d.", iRet);
     return iRet;

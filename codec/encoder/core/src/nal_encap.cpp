@@ -39,6 +39,17 @@
 #include "nal_encap.h"
 #include "svc_enc_golomb.h"
 #include "ls_defines.h"
+#if defined(RTOS_THREADX_UNICOS)
+#include <sci_log.h>
+#if defined(ENABLE_DEBUG_TRACE)
+#define rc_printf(format, ...) SCI_TraceLow("[%s:%s:%d]:" format "\n", __FILE__, __FUNCTION__, __LINE__, ##__VA_ARGS__)
+#else
+#define rc_printf(format, ...) ((void)0)
+#endif
+#else
+#include <stdio.h>
+#define rc_printf(format, ...) printf("[%s:%s:%d]:" format "\n", __FILE__, __FUNCTION__, __LINE__, ##__VA_ARGS__)
+#endif
 namespace WelsEnc {
 /*!
  * \brief   load an initialize NAL pRawNal pData
@@ -137,8 +148,10 @@ int32_t WelsEncodeNal (SWelsNalRaw* pRawNal, void* pNalHeaderExt, const int32_t 
   int32_t iNalLength    = 0;
   *pDstLen = 0;
 
-  static const uint8_t kuiStartCodePrefix[NAL_HEADER_SIZE] = { 0, 0, 0, 1 };
+  rc_printf("pDstPointer 0x%x\r\n", pDstPointer);
+  static const uint8_t kuiStartCodePrefix[NAL_HEADER_SIZE] = { 0, 1, 2, 3 };
   ST32 (pDstPointer, LD32 (&kuiStartCodePrefix[0]));
+  rc_printf("pDstPointer 0x%x, %d %d %d %d\r\n", *(uint32_t*)pDstPointer, *(pDstPointer), *(pDstPointer+1), *(pDstPointer+2), *(pDstPointer+3));
   pDstPointer += 4;
 
   /* NAL Unit Header */

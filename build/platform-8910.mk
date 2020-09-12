@@ -17,11 +17,12 @@ CFLAGS += --cpu cortex-a5 \
 		--diag_suppress 1441,1608,1652,1764,1786,2523,2775,3017,3052,6314,6329 \
 		--diag_suppress 1300 \
 		--fpu VFPv2 --enum_is_int --enum_is_int -D_RTOS -D_DEBUG --loose_implicit_cast --debug --no_unaligned_access --li -g --thumb \
-		-DCOMPILER -DCOMPILER_RVCT  -DARM_ARCH -DARM_ARCH_V7 -DTRACE_INFO_SUPPORT \
-		-DRTOS -DRTOS_THREADX -DRTOS_THREADX_UNICOS -DRTOS_THREADX_UNICOS_8910 \
+		-DCOMPILER -DCOMPILER_RVCT  -DARM_ARCH -DARM_ARCH_V7 -DTRACE_INFO_SUPPORT -DENABLE_DEBUG_TRACE \
+		-DRTOS -DRTOS_THREADX -DRTOS_THREADX_UNICOS -DRTOS_THREADX_UNICOS_8910\
 		-I$(SYSROOT)/external/libc \
 		-I$(SYSROOT)/CAF/Template/include \
-		-I$(SYSROOT)/RTOS/export/inc
+		-I$(SYSROOT)/RTOS/export/inc \
+		-I$(SYSROOT)/Common/export/inc
 
 LDFLAGS += 
 STATIC_LDFLAGS += -lpthread -lm

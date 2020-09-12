@@ -46,8 +46,11 @@
 #include "typedefs.h"
 #include "memory_align.h"
 #include "utils.h"
+#if defined(RTOS_THREADX_UNICOS)
+#include "version_gen.h"
+#else
 #include "version.h"
-
+#endif
 //#include "macros.h"
 #include "decoder.h"
 #include "decoder_core.h"
