@@ -40,6 +40,9 @@
 #include "utils.h"
 #include "crt_util_safe_x.h" // Safe CRT routines like utils for cross platforms
 #include "codec_app_def.h"
+#include "macros.h"
+
+
 float WelsCalcPsnr (const void* kpTarPic,
                     const int32_t kiTarStride,
                     const void* kpRefPic,
@@ -75,8 +78,8 @@ void WelsLog (SLogContext* logCtx, int32_t iLevel, const char* kpFmt, ...) {
 }
 
 #ifndef CALC_PSNR
-#define CONST_FACTOR_PSNR       (10.0 / log(10.0))      // for good computation
-#define CALC_PSNR(w, h, s)      ((float)(CONST_FACTOR_PSNR * log( 65025.0 * w * h / iSqe )))
+#define CONST_FACTOR_PSNR       (10.0 /  WELS_LOG(10.0))      // for good computation
+#define CALC_PSNR(w, h, s)      ((float)(CONST_FACTOR_PSNR * WELS_LOG( 65025.0 * w * h / iSqe )))
 #endif//CALC_PSNR
 
 /*

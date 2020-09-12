@@ -68,7 +68,7 @@ static inline uint32_t GetLogFactor (float base, float upper) {
 #endif
   const double dLog2factor      = log10 (1.0 * (double)upper / (double)base) / log10 (2.0);
   const double dEpsilon         = 0.0001;
-  const double dRound           = floor (dLog2factor + 0.5);
+  const double dRound           = WELS_FLOOR (dLog2factor + 0.5);
 
   if (dLog2factor < dRound + dEpsilon && dRound < dLog2factor + dEpsilon) {
     return (uint32_t) (dRound);

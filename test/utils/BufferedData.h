@@ -6,6 +6,9 @@
 #include <stdlib.h>
 #include "../test_stdint.h"
 #include <algorithm>
+#if defined(RTOS_THREADX_UNICOS)
+#include "os_api.h"
+#endif
 
 class BufferedData {
  public:
@@ -64,9 +67,11 @@ class BufferedData {
   bool EnsureCapacity (size_t capacity) {
     if (capacity > capacity_) {
       size_t newsize = capacity * 2;
-
-      uint8_t* data = static_cast<uint8_t*> (realloc (data_, newsize));
-
+#if defined(RTOS_THREADX_UNICOS)
+      uint8_t* data = static_cast<uint8_t*> (SCI_REALLOC(data_, newsize));
+#else
+      uint8_t* data = static_cast<uint8_t*> (realloc(data_, newsize));
+#endif
       if (!data)
         return false;
 

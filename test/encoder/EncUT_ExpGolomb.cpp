@@ -5,13 +5,13 @@
 
 using namespace WelsEnc;
 
-const double g_kdLog2Factor = 1.0 / log (2.0);
+const double g_kdLog2Factor = 1.0 / WELS_LOG (2.0);
 
 TEST (UeExpGolombTest, TestBsSizeUeLt256) {
   uint32_t uiInVal = 0;
   for (; uiInVal < 256; ++ uiInVal) {
     const uint32_t uiActVal = BsSizeUE (uiInVal);
-    const int32_t m = static_cast<int32_t> (log ((uiInVal + 1) * 1.0) * g_kdLog2Factor + 1e-6);
+    const int32_t m = static_cast<int32_t> (WELS_LOG ((uiInVal + 1) * 1.0) * g_kdLog2Factor + 1e-6);
     const uint32_t uiExpVal = (m << 1) + 1;
     EXPECT_EQ (uiActVal, uiExpVal);
   }
@@ -21,7 +21,7 @@ TEST (UeExpGolombTest, TestBsSizeUeRangeFrom256To65534) {
   uint32_t uiInVal = 0x100;
   for (; uiInVal < 0xFFFF; ++ uiInVal) {
     const uint32_t uiActVal = BsSizeUE (uiInVal);
-    const int32_t m = static_cast<int32_t> (log ((uiInVal + 1) * 1.0) * g_kdLog2Factor + 1e-6);
+    const int32_t m = static_cast<int32_t> (WELS_LOG ((uiInVal + 1) * 1.0) * g_kdLog2Factor + 1e-6);
     const uint32_t uiExpVal = (m << 1) + 1;
     EXPECT_EQ (uiActVal, uiExpVal);
   }

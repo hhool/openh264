@@ -42,6 +42,7 @@
 #include "decode_mb_aux.h"
 #include "memory_align.h"
 #include "error_concealment.h"
+#include "macros.h"
 
 namespace WelsDec {
 static inline int32_t DecodeFrameConstruction (PWelsDecoderContext pCtx, uint8_t** ppDst, SBufferInfo* pDstInfo) {
@@ -1133,7 +1134,7 @@ int32_t ParseSliceHeaderSyntaxs (PWelsDecoderContext pCtx, PBitStringAux pBs, co
     bSgChangeCycleInvolved = (bSgChangeCycleInvolved && (uiQualityId == BASE_QUALITY_ID));
   if (bSgChangeCycleInvolved) {
     if (pPps->uiSliceGroupChangeRate > 0) {
-      const int32_t kiNumBits = (int32_t)WELS_CEIL (log (static_cast<double> (1 + pPps->uiPicSizeInMapUnits /
+      const int32_t kiNumBits = (int32_t)WELS_CEIL (WELS_LOG (static_cast<double> (1 + pPps->uiPicSizeInMapUnits /
                                 pPps->uiSliceGroupChangeRate)));
       WELS_READ_VERIFY (BsGetBits (pBs, kiNumBits, &uiCode)); //lice_group_change_cycle
       pSliceHead->iSliceGroupChangeCycle = uiCode;

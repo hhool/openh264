@@ -44,6 +44,7 @@
 #include "rc.h"
 #include "encoder_context.h"
 #include "utils.h"
+#include "macros.h"
 #include "svc_enc_golomb.h"
 
 
@@ -97,7 +98,7 @@ static inline int32_t RcConvertQp2QStep (int32_t iQP) {
 static inline int32_t RcConvertQStep2Qp (int32_t iQpStep) {
   if (iQpStep <= g_kiQpToQstepTable[0]) //Qp step too small, return qp=0
     return 0;
-  return WELS_ROUND ((6 * log (iQpStep * 1.0f / INT_MULTIPLY) / log (2.0) + 4.0));
+  return WELS_ROUND ((6 * WELS_LOG(iQpStep * 1.0f / INT_MULTIPLY) / WELS_LOG (2.0) + 4.0));
 }
 
 void RcInitSequenceParameter (sWelsEncCtx* pEncCtx) {

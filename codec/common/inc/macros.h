@@ -45,6 +45,9 @@
 #include <string.h>
 #include "typedefs.h"
 
+#if defined(RTOS_THREADX_UNICOS_8910)
+#include "unicos_math.h"
+#endif
 
 /*
 * ENFORCE_STACK_ALIGN_1D: force 1 dimension local data aligned in stack
@@ -108,8 +111,20 @@
 #endif//WELS_CEIL
 
 #ifndef WELS_FLOOR
+#if defined(RTOS_THREADX_UNICOS_8910)
+#define WELS_FLOOR(x) rc_math_floor(x)
+#else
 #define WELS_FLOOR(x) floor(x)        // FIXME: low complexity instead of math library used
+#endif
 #endif//WELS_FLOOR
+
+#ifndef WELS_LOG
+#if defined(RTOS_THREADX_UNICOS_8910)
+#define WELS_LOG(x) rc_math_log(x)
+#else
+#define WELS_LOG(x) log(x)        // FIXME: low complexity instead of math library used
+#endif
+#endif
 
 #ifndef WELS_ROUND
 #define WELS_ROUND(x) ((int32_t)(0.5+(x)))
